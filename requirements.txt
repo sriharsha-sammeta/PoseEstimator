@@ -1,0 +1,41 @@
+# ============================================================
+# Being-H0 × EgoDex Finetuning Pipeline
+# Python 3.10 required (beingvla dependency constraint)
+# ============================================================
+
+# ---- Core PyTorch ----
+torch>=2.1.0
+torchvision>=0.16.0
+
+# ---- Being-H0 (install from source — see README) ----
+# pip install git+https://github.com/BeingBeyond/Being-H0.git
+# On GPU machines, also install:
+#   pip install flash-attn --no-build-isolation
+#   pip install git+https://github.com/lixiny/manotorch.git   # for --eval_only baseline
+#   pip install git+https://github.com/mattloper/chumpy.git   # manotorch dependency
+
+# ---- EgoDex dataset ----
+h5py>=3.9.0
+opencv-python-headless>=4.8.0  # video frame decoding (cross-platform fallback)
+# Note: decord is not available on macOS via pip — cv2 is used as fallback.
+# On Linux (Runpod): pip install decord>=0.6.0 for faster video decoding.
+
+# ---- HuggingFace ecosystem ----
+transformers>=4.43.0
+huggingface_hub>=0.21.0
+accelerate>=0.28.0
+peft>=0.10.0           # LoRA support (optional but useful)
+
+# ---- Training & logging ----
+wandb>=0.16.0
+tqdm>=4.66.0
+
+# ---- beingvla extra deps (not in its requirements.txt) ----
+einx>=0.3.0            # required by beingvla motion tokenizer
+timm>=0.9.0            # required by beingvla VLM adapter
+
+# ---- Numerics / utils ----
+numpy>=1.24.0
+Pillow>=10.0.0
+einops>=0.7.0
+PyYAML>=6.0.0

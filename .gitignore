@@ -1,0 +1,21 @@
+# Secrets
+secrets.md
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+
+# Training outputs
+runs/
+
+# Third-party cloned repos (users clone fresh per instructions)
+third_party/
+
+# OS
+.DS_Store
+
+# IDE
+.vscode/
+.idea/
