@@ -452,6 +452,10 @@ def main():
     train_loader, val_loader = build_dataloaders(args)
 
     # Model
+    # Detect if user explicitly passed --model_name on the CLI
+    model_name_explicit = any(
+        a.startswith("--model_name") for a in sys.argv[1:]
+    )
     print("\n[model] Loading Being-H0...")
     model = load_being_h0(
         model_name=args.model_name,
@@ -459,6 +463,7 @@ def main():
         dry_run=args.dry_run,
         freeze_backbone=args.freeze_backbone,
         pred_horizon=args.pred_horizon,
+        model_name_explicitly_set=model_name_explicit,
     )
     device = model.dev
 

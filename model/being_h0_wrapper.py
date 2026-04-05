@@ -64,8 +64,8 @@ DEFAULT_MODEL  = "BeingBeyond/Being-H0-8B-2508"
 
 # Approximate hidden dims for auto-fallback if config is unavailable
 _KNOWN_HIDDEN_DIMS = {
-    "1b":  2048,
-    "8b":  4096,
+    "1b":  896,
+    "8b":  3584,
     "14b": 5120,
 }
 
@@ -444,17 +444,19 @@ def load_being_h0(
     freeze_backbone: bool = True,
     pred_horizon: int = 16,
     device: Optional[str] = None,
+    model_name_explicitly_set: bool = False,
 ) -> BeingH0Wrapper:
     """
     Factory function used by train.py.
 
-    In dry_run mode the 1B checkpoint is loaded (unless model_name was
-    explicitly overridden by the user) so the full model loading path is
-    tested on a MacBook without requiring the larger 8B weights.
+    In dry_run mode the 1B checkpoint is loaded automatically UNLESS the user
+    explicitly passed --model_name on the command line.
     """
-    if dry_run and model_name == DEFAULT_MODEL:
+    if dry_run and not model_name_explicitly_set:
         model_name = DRY_RUN_MODEL
         print(f"[load_being_h0] dry_run=True → using 1B checkpoint: {model_name}")
+    else:
+        print(f"[load_being_h0] Using checkpoint: {model_name}")
 
     # On Mac, disable flash attention automatically
     use_flash_attn = torch.cuda.is_available()

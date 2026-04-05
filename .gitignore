@@ -1,5 +1,7 @@
 # Secrets
 secrets.md
+.mcp.json
+scripts/runpod_e2e_test.sh
 
 # Python
 .venv/
